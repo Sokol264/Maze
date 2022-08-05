@@ -1,5 +1,7 @@
 #include "elleralgorithm.h"
 
+using s21::EllerAlgorithm;
+
 EllerAlgorithm::EllerAlgorithm() : width(0), height(0) {}
 
 EllerAlgorithm::TripleVector EllerAlgorithm::generateLabyrinth() {

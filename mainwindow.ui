@@ -17,7 +17,7 @@
    <property name="styleSheet">
     <string notr="true"/>
    </property>
-   <widget class="LabyrinthDrawer" name="widget" native="true">
+   <widget class="s21::LabyrinthDrawer" name="widget" native="true">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -179,7 +179,7 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>LabyrinthDrawer</class>
+   <class>s21::LabyrinthDrawer</class>
    <extends>QWidget</extends>
    <header>labyrinthdrawer.h</header>
    <container>1</container>

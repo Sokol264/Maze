@@ -4,12 +4,13 @@
 #include <vector>
 #include <random>
 
+namespace s21 {
+
 enum WallType {
     Right = 0, Lower
 };
 
-class EllerAlgorithm
-{
+class EllerAlgorithm {
 public:
     using TripleVector = std::vector<std::vector<std::vector<int>>>;
     using DoubleVector = std::vector<std::vector<int>>;
@@ -32,4 +33,5 @@ private:
     int UniqueSetCount(int number);
 };
 
+}  // namespace s21 
 #endif // ELLERALGORITHM_H

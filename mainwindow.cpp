@@ -1,25 +1,33 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+using s21::MainWindow;
+
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
-{
+    : QMainWindow(parent),
+      ui(std::make_unique<Ui::MainWindow>()),
+      controller_(std::make_unique<Controller>()) {
     ui->setupUi(this);
-    connect(ui->newMazeButton, &QPushButton::clicked, this, &MainWindow::btnClicked);
+    ConnectSignals();
 }
 
-MainWindow::~MainWindow()
-{
-    delete ui;
+MainWindow::~MainWindow() {}
+
+void MainWindow::ConnectSignals() {
+    connect(ui->newMazeButton, &QPushButton::clicked, this, &MainWindow::btnClicked);
+    connect(ui->findPathButton, &QPushButton::clicked, this, &MainWindow::findPathBtnClicked);
 }
 
 void MainWindow::btnClicked() {
-    facade.setHeight(ui->heightSpinBox->value());
-    facade.setWidth(ui->widthSpinBox->value());
-    facade.GenerateMaze();
-    ui->widget->setWidth(facade.width());
-    ui->widget->setHeight(facade.height());
-    ui->widget->setWalls(facade.walls());
+    controller_->SetHeight(ui->heightSpinBox->value());
+    controller_->SetWidth(ui->widthSpinBox->value());
+    controller_->GenerateMaze();
+    ui->widget->setWidth(controller_->width());
+    ui->widget->setHeight(controller_->height());
+    ui->widget->setWalls(controller_->walls());
     ui->widget->update();
+}
+
+void MainWindow::findPathBtnClicked() {
+    controller_->SearchWay();
 }

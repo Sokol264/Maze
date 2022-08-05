@@ -6,8 +6,9 @@
 #include <fstream>
 #include <vector>
 
-class LabyrinthDrawer : public QWidget
-{
+namespace s21 { class LabyrinthDrawer; }
+
+class s21::LabyrinthDrawer : public QWidget {
     Q_OBJECT
 public:
     using TripleVector = std::vector<std::vector<std::vector<int>>>;

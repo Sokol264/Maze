@@ -1,6 +1,8 @@
 #include "labyrinthdrawer.h"
 #include <QDebug>
 
+using s21::LabyrinthDrawer;
+
 LabyrinthDrawer::LabyrinthDrawer(QWidget *parent) : QWidget{parent}, width_(5), height_(5) {}
 
 void LabyrinthDrawer::paintEvent(QPaintEvent *event) {

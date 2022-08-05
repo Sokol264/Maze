@@ -1,14 +1,17 @@
 #include "filemanager.h"
 
+using s21::FileManager;
+
 FileManager::FileManager() {}
 
-void FileManager::readLabyrinthFile(std::string filename) {
+void FileManager::readLabyrinthFile(const std::string& filename) {
     inputFile.open(filename);
     if (!inputFile.is_open()) {}
     clearParameters();
     initMazeVectors();
     inputFile.close();
 }
+
 void FileManager::initMazeVectors() {
     inputFile >> width_ >> height_;
     if (width_ > 0 && height_ > 0) {
@@ -25,7 +28,7 @@ void FileManager::initMazeVectors() {
     }
 }
 
-void FileManager::readCaveFile(std::string filename) {
+void FileManager::readCaveFile(const std::string& filename) {
     inputFile.open(filename);
     if (!inputFile.is_open()) {}
     clearParameters();
@@ -51,7 +54,7 @@ void FileManager::clearParameters() {
     cave_.clear();
 }
 
-void FileManager::writeLabyrinthFile(std::string filename) {
+void FileManager::writeLabyrinthFile(const std::string& filename) {
     if (width_ == 0 || height_ == 0 || walls_.empty()) {}
     outputFile.open(filename);
     if (!outputFile.is_open()) {}
@@ -66,7 +69,7 @@ void FileManager::writeLabyrinthFile(std::string filename) {
         outputFile << std::endl;
     }
 }
-void FileManager::writeCaveFile(std::string filename) {
+void FileManager::writeCaveFile(const std::string& filename) {
     if (width_ == 0 || height_ == 0 || cave_.empty()) {}
     outputFile.open(filename);
     if (!outputFile.is_open()) {}
@@ -86,10 +89,10 @@ void FileManager::setWidth(int value) {
 void FileManager::setHeight(int value) {
     height_ = value;
 }
-void FileManager::setWalls(TripleVector value) {
+void FileManager::setWalls(const TripleVector &value) {
     walls_ = value;
 }
-void FileManager::setCave(DoubleVector value) {
+void FileManager::setCave(const DoubleVector &value) {
     cave_ = value;
 }
 
