@@ -1,11 +1,11 @@
 #include "facade.h"
+#include <iostream>
 
 using s21::Facade;
 
 Facade::Facade() :
     fileManager_(std::make_unique<FileManager>()),
-    mazeGenerator_(std::make_unique<EllerAlgorithm>()),
-    searcher_(nullptr) {}
+    mazeGenerator_(std::make_unique<EllerAlgorithm>()) {}
 
 void Facade::GenerateMaze() {
     mazeGenerator_->setHeight(height_);
@@ -21,7 +21,10 @@ void Facade::ReadLabyrinthFromFile(const std::string &fileName) {
 }
 
 void Facade::SearchWay() {
-    std::make_unique<s21::Searcher>(walls_, width_, height_)->Execute();
+    std::shared_ptr<IGraph> graph = std::make_shared<MatrixGraph>(walls_, width_, height_);
+    std::cout << graph->VertexCount() << std::endl;
+    std::cout << graph->EdgeCount() << std::endl;
+    std::make_unique<SimpleSearch>(graph)->Execute();
 }
 
 void Facade::SetHeight(int value) {

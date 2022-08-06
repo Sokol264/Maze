@@ -13,7 +13,8 @@ SOURCES += \
     facade.cpp \
     filemanager.cpp \
     labyrinthdrawer.cpp \
-    searcher.cpp \
+    graph.cc \
+    searcher.cc \
     Controller/controller.cc \
     main.cpp \
     mainwindow.cpp
@@ -23,6 +24,7 @@ HEADERS += \
     facade.h \
     filemanager.h \
     labyrinthdrawer.h \
+    graph.h \
     searcher.h \
     Controller/controller.h \
     mainwindow.h

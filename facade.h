@@ -4,6 +4,7 @@
 #include "filemanager.h"
 #include "elleralgorithm.h"
 #include "labyrinthdrawer.h"
+#include "graph.h"
 #include "searcher.h"
 #include <memory>
 
@@ -32,7 +33,7 @@ private:
 
     std::unique_ptr<FileManager> fileManager_;
     std::unique_ptr<EllerAlgorithm> mazeGenerator_;
-    std::unique_ptr<s21::Searcher> searcher_;
+    /* std::unique_ptr<s21::Searcher> searcher_; */
 };
 
 #endif // FACADE_H
