@@ -1,19 +1,17 @@
 #include "facade.h"
-#include <iostream>
 
 using s21::Facade;
+using s21::LabyrinthDrawer;
 
-Facade::Facade() :
+Facade::Facade(QWidget *drawer) :
+    drawer_(InitDrawer(drawer)),
     fileManager_(std::make_unique<FileManager>()),
     mazeGenerator_(std::make_unique<EllerAlgorithm>()) {}
 
-void Facade::GenerateMaze(int width, int height) {
+void Facade::GenerateMaze() {
     mazeGenerator_->setHeight(height_);
     mazeGenerator_->setWidth(width_);
     walls_ = mazeGenerator_->generateLabyrinth();
-    walls_ = mazeGenerator_->walls();
-    width_ = mazeGenerator_->width();
-    height_ = fileManager_->height();
     drawer_->setWalls(walls_);
     drawer_->setWidth(width_);
     drawer_->setHeight(height_);
@@ -31,11 +29,12 @@ void Facade::ReadLabyrinthFromFile(const std::string &fileName) {
     drawer_->update();
 }
 
-void Facade::SearchWay() {
+void Facade::SearchWay(int start_index, int end_index) {
     std::shared_ptr<IGraph> graph = std::make_shared<MatrixGraph>(walls_, width_, height_);
     std::cout << graph->VertexCount() << std::endl;
     std::cout << graph->EdgeCount() << std::endl;
     std::make_unique<SimpleSearch>(graph)->Execute();
+    graph->Print();
 }
 
 void Facade::SetHeight(int value) {
@@ -46,8 +45,8 @@ void Facade::SetWidth(int value) {
     width_ = value;
 }
 
-void Facade::SetDrawer(QWidget *drawer) {
-    drawer_ = static_cast<LabyrinthDrawer*>(drawer);
+inline LabyrinthDrawer* Facade::InitDrawer(QWidget *drawer) {
+    return static_cast<LabyrinthDrawer*>(drawer);
 }
 
 int Facade::width() {

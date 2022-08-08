@@ -16,18 +16,42 @@ void MatrixGraph::InitEdgeCount(const TripleVector& labyrinthMatrix) {
     for (size_t i = 0; i < labyrinthMatrix.size(); ++i) {
         for (size_t j = 0; j < labyrinthMatrix[i].size(); ++j) {
             for (size_t k = 0; k < labyrinthMatrix[i][j].size(); ++k) {
-                std::cout << labyrinthMatrix[i][j][k] << ' ';
                 if (!labyrinthMatrix[i][j][k])
                     ++e_;
             }
-            std::cout << std::endl;
         }
-        std::cout << std::endl;
     }
 }
 
 void MatrixGraph::InitData(const TripleVector& labyrinthMatrix) {
     if (labyrinthMatrix.size()) {
+        ReserveMemory();
+        FillData(labyrinthMatrix);
+    }
+}
+
+void MatrixGraph::ReserveMemory() {
+    for (int i = 0; i < v_; ++i) {
+        std::vector<bool> cols(v_, false);
+        data_.push_back(cols);
+    }
+}
+
+void MatrixGraph::FillData(const TripleVector& labyrinthMatrix) {
+    ReadBorders(labyrinthMatrix[0], BorderType::kRightBorder);
+    ReadBorders(labyrinthMatrix[1], BorderType::kDownBorder);
+}
+
+void MatrixGraph::ReadBorders(const DoubleVector &borders, BorderType type) {
+    for (size_t i = 0, sz = borders.size(); i != sz; ++i) {
+        for (size_t j = 0, jSize = borders[i].size(); j != jSize; ++j) {
+            if (!borders[i][j]) {
+                int row = i * sz + j;
+                int col = type == BorderType::kRightBorder ? (i * sz + j + 1) : (i * sz + j + sz);
+                data_[row][col] = true;
+                data_[col][row] = true;
+            }
+        }
     }
 }
 
@@ -47,11 +71,12 @@ int MatrixGraph::EdgeCount() const {
     return e_;
 }
 
-
-
-
-
-
-
-
+void MatrixGraph::Print() const {
+    for (size_t i = 0, sz = data_.size(); i != sz; ++i) {
+        for (size_t j = 0, jSize = data_[i].size(); j != jSize; ++j) {
+            std::cout << data_[i][j] << ' ';
+        }
+        std::cout << '\n';
+    }
+}
 

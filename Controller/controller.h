@@ -10,12 +10,11 @@ namespace s21 { class Controller; }
 class s21::Controller {
     using TripleVector = std::vector<std::vector<std::vector<int>>>;
  public:
-    Controller();
+    Controller(QWidget *drawer);
     void SetHeight(int value);
     void SetWidth(int value);
-    void SetDrawer(QWidget *widget);
     void GenerateMaze();
-    void SearchWay();
+    void SearchWay(int start_index, int end_index);
     void ReadLabyrinthFromFile(const std::string &fileName);
     // Getters
     int width();

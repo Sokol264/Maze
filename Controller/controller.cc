@@ -2,7 +2,7 @@
 
 using s21::Controller;
 
-Controller::Controller() : facade_(std::make_unique<Facade>()) {}
+Controller::Controller(QWidget *drawer) : facade_(std::make_unique<Facade>(drawer)) {}
 
 void Controller::SetHeight(int value) {
     facade_->SetHeight(value);
@@ -10,10 +10,6 @@ void Controller::SetHeight(int value) {
 
 void Controller::SetWidth(int value) {
     facade_->SetWidth(value);
-}
-
-void Controller::SetDrawer(QWidget *widget) {
-    facade_->SetDrawer(widget);
 }
 
 void Controller::GenerateMaze() {
@@ -24,8 +20,8 @@ void Controller::ReadLabyrinthFromFile(const std::string &fileName) {
     facade_->ReadLabyrinthFromFile(fileName);
 }
 
-void Controller::SearchWay() {
-    facade_->SearchWay();
+void Controller::SearchWay(int start_index, int end_index) {
+    facade_->SearchWay(start_index, end_index);
 }
 
 int Controller::width() {
