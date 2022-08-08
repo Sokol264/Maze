@@ -13,14 +13,13 @@ EllerAlgorithm::TripleVector EllerAlgorithm::generateLabyrinth() {
         }
     }
 
-    for (int i = 0; i < height - 1; ++i) {
+    for (int i = 0; i < height; ++i) {
         AssignNewSet(setNumber);
         CreateVerticalWallsInRow(i, result);
-        CreateHorizontalWallsInRow(i, result);
+        if (i != height - 1)  {
+            CreateHorizontalWallsInRow(i, result);
+        }
     }
-    AssignNewSet(setNumber);
-    CreateVerticalWallsInRow(height - 1, result);
-
     FinishLastRow(result);
     return result;
 }
