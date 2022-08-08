@@ -13,11 +13,14 @@ EllerAlgorithm::TripleVector EllerAlgorithm::generateLabyrinth() {
         }
     }
 
-    for (int i = 0; i < height; ++i) {
+    for (int i = 0; i < height - 1; ++i) {
         AssignNewSet(setNumber);
         CreateVerticalWallsInRow(i, result);
         CreateHorizontalWallsInRow(i, result);
     }
+    AssignNewSet(setNumber);
+    CreateVerticalWallsInRow(height - 1, result);
+
     FinishLastRow(result);
     return result;
 }
@@ -55,10 +58,10 @@ void EllerAlgorithm::FinishLastRow(TripleVector &result) {
         result[Lower][height - 1][j] = 1;
         if (row[j] != row[j + 1]) {
             result[Right][height - 1][j] = 0;
-            UniteSets(row[j], row[j + 1]);
         }
+        UniteSets(row[j], row[j + 1]);
     }
-//    result[Right][height - 1][width - 1] = 1;
+    result[Right][height - 1][width - 1] = 1;
 }
 
 bool EllerAlgorithm::ThrowCoin() {
