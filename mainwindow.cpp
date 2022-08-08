@@ -18,8 +18,11 @@ void MainWindow::btnClicked() {
     facade.setHeight(ui->heightSpinBox->value());
     facade.setWidth(ui->widthSpinBox->value());
     facade.GenerateMaze();
+    ui->widget->enableDrawerCase(Maze);
     ui->widget->setWidth(facade.width());
     ui->widget->setHeight(facade.height());
     ui->widget->setWalls(facade.walls());
     ui->widget->update();
 }
+
+

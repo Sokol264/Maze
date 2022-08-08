@@ -15,6 +15,7 @@ public:
     void GenerateMaze();
     void setHeight(int value);
     void setWidth(int value);
+
     int width();
     int height();
     TripleVector walls();
