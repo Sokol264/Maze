@@ -52,6 +52,13 @@ void LabyrinthDrawer::paintEvent(QPaintEvent *event) {
 //    }
 }
 
+void LabyrinthDrawer::UpdateScreen(TripleVector &&walls, int width, int height) noexcept {
+    width_ = width;
+    height_ = height;
+    walls_ = std::move(walls);
+    update();
+}
+
 void LabyrinthDrawer::setWidth(int value) {
     width_ = value;
 }

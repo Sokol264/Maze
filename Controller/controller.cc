@@ -12,6 +12,10 @@ void Controller::SetWidth(int value) {
     facade_->SetWidth(value);
 }
 
+void Controller::SetDrawer(QWidget *widget) {
+    facade_->SetDrawer(widget);
+}
+
 void Controller::GenerateMaze() {
     facade_->GenerateMaze();
 }
@@ -35,3 +39,4 @@ int Controller::height() {
 typename Controller::TripleVector Controller::walls() {
     return facade_->walls();
 }
+

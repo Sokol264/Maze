@@ -20,6 +20,8 @@ public:
     void setHeight(int value);
     void setWalls(TripleVector value);
 
+    void UpdateScreen(TripleVector &&walls, int width, int height) noexcept;
+
 protected:
     void paintEvent(QPaintEvent *event);
 

@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QFileDialog>
 
 using s21::MainWindow;
 
@@ -8,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
       ui(std::make_unique<Ui::MainWindow>()),
       controller_(std::make_unique<Controller>()) {
     ui->setupUi(this);
+    controller_->SetDrawer(ui->widget);
     ConnectSignals();
 }
 
@@ -16,6 +18,7 @@ MainWindow::~MainWindow() {}
 void MainWindow::ConnectSignals() {
     connect(ui->newMazeButton, &QPushButton::clicked, this, &MainWindow::btnClicked);
     connect(ui->findPathButton, &QPushButton::clicked, this, &MainWindow::findPathBtnClicked);
+    connect(ui->openFileButton, &QPushButton::clicked, this, &MainWindow::openFileBtnClicked);
 }
 
 void MainWindow::btnClicked() {
@@ -30,4 +33,14 @@ void MainWindow::btnClicked() {
 
 void MainWindow::findPathBtnClicked() {
     controller_->SearchWay();
+}
+
+void MainWindow::openFileBtnClicked() {
+    auto name = QFileDialog::getOpenFileName(nullptr,
+                QObject::tr("Open File"),
+                "./",
+                QObject::tr("Text files(*.txt)"));
+    if (!name.isEmpty()) {
+        controller_->ReadLabyrinthFromFile(name.toStdString());
+    }
 }

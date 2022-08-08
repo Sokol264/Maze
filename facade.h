@@ -1,12 +1,14 @@
 #ifndef FACADE_H
 #define FACADE_H
 
+#include <memory>
+#include <QWidget>
+
 #include "filemanager.h"
 #include "elleralgorithm.h"
 #include "labyrinthdrawer.h"
 #include "graph.h"
 #include "searcher.h"
-#include <memory>
 
 namespace s21 { class Facade; }
 
@@ -22,17 +24,22 @@ public:
     void SearchWay();
     void SetHeight(int value);
     void SetWidth(int value);
+    void SetDrawer(QWidget *drawer);
     int width();
     int height();
     TripleVector walls();
 
 private:
+    std::unique_ptr<FileManager> fileManager_;
+    std::unique_ptr<EllerAlgorithm> mazeGenerator_;
+    LabyrinthDrawer *drawer_;
+    
     int width_, height_;
     TripleVector walls_;
     DoubleVector cave_;
 
-    std::unique_ptr<FileManager> fileManager_;
-    std::unique_ptr<EllerAlgorithm> mazeGenerator_;
+
+
     /* std::unique_ptr<s21::Searcher> searcher_; */
 };
 

@@ -24,6 +24,6 @@ private:
 private slots:
     void btnClicked();
     void findPathBtnClicked();
-
+    void openFileBtnClicked();
 };
 #endif // MAINWINDOW_H

@@ -2,6 +2,9 @@
 #define CONTROLLER_H_
 
 namespace s21 { class Controller; }
+
+#include <QWidget>
+
 #include "../facade.h"
 
 class s21::Controller {
@@ -10,6 +13,7 @@ class s21::Controller {
     Controller();
     void SetHeight(int value);
     void SetWidth(int value);
+    void SetDrawer(QWidget *widget);
     void GenerateMaze();
     void SearchWay();
     void ReadLabyrinthFromFile(const std::string &fileName);
