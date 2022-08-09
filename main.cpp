@@ -2,11 +2,10 @@
 
 #include <QApplication>
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     srand(time(NULL));
     QApplication a(argc, argv);
-    MainWindow w;
+    s21::MainWindow w;
     w.show();
     return a.exec();
 }

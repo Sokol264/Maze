@@ -3,25 +3,27 @@
 
 #include <vector>
 #include <fstream>
-class FileManager
-{
+
+namespace s21 { class FileManager; }
+
+class s21::FileManager {
 public:
     using TripleVector = std::vector<std::vector<std::vector<int>>>;
     using DoubleVector = std::vector<std::vector<int>>;
     using Vector = std::vector<int>;
 
     FileManager();
-    void readLabyrinthFile(std::string filename);
-    void readCaveFile(std::string filename);
+    void readLabyrinthFile(const std::string &filename);
+    void readCaveFile(const std::string &filename);
 
-    void writeLabyrinthFile(std::string filename);
-    void writeCaveFile(std::string filename);
+    void writeLabyrinthFile(const std::string &filename);
+    void writeCaveFile(const std::string &filename);
 
     // Setters
     void setWidth(int value);
     void setHeight(int value);
-    void setWalls(TripleVector value);
-    void setCave(DoubleVector value);
+    void setWalls(const TripleVector& value);
+    void setCave(const DoubleVector& value);
 
     // Getters
     int width();

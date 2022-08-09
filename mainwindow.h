@@ -2,26 +2,28 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "facade.h"
+#include "Controller/controller.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
+namespace s21 { class MainWindow; }
 QT_END_NAMESPACE
 
-class MainWindow : public QMainWindow
-{
+class s21::MainWindow : public QMainWindow {
     Q_OBJECT
 
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void ConnectSignals();
 
 private:
-    Ui::MainWindow *ui;
-    Facade facade;
+    std::unique_ptr<Ui::MainWindow> ui;
+    std::unique_ptr<Controller> controller_;
 
 private slots:
-   void btnClicked();
-
+    void btnClicked();
+    void findPathBtnClicked();
+    void openFileBtnClicked();
 };
 #endif // MAINWINDOW_H

@@ -9,18 +9,24 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Controller/controller.cc \
     elleralgorithm.cpp \
     facade.cpp \
     filemanager.cpp \
     labyrinthdrawer.cpp \
+    graph.cc \
+    searcher.cc \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
+    Controller/controller.h \
     elleralgorithm.h \
     facade.h \
     filemanager.h \
     labyrinthdrawer.h \
+    graph.h \
+    searcher.h \
     mainwindow.h
 
 FORMS += \

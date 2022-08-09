@@ -1,10 +1,12 @@
 #include "labyrinthdrawer.h"
+
 #include <QDebug>
 
-LabyrinthDrawer::LabyrinthDrawer(QWidget *parent) : QWidget{parent}, width_(1), height_(1) {}
+using s21::LabyrinthDrawer;
+
+LabyrinthDrawer::LabyrinthDrawer(QWidget *parent) : QWidget{parent}, width_(5), height_(5) {}
 
 void LabyrinthDrawer::paintEvent(QPaintEvent *event) {
-
     Q_UNUSED(event);
     QPainter painter(this);
 
@@ -22,9 +24,11 @@ void LabyrinthDrawer::paintEvent(QPaintEvent *event) {
             for (int i = 0; i < height_; ++i) {
                 for (int j = 0; j < width_; ++j) {
                     if (walls_[0][i][j])
-                        painter.drawLine(j * cellWidth + cellWidth, i * cellHeight, j * cellWidth + cellWidth, i * cellHeight + cellHeight);
+                        painter.drawLine(j * cellWidth + cellWidth, i * cellHeight, j * cellWidth + cellWidth,
+                                         i * cellHeight + cellHeight);
                     if (walls_[1][i][j])
-                        painter.drawLine(j * cellWidth, i * cellHeight + cellHeight, j * cellWidth + cellWidth, i * cellHeight + cellHeight);
+                        painter.drawLine(j * cellWidth, i * cellHeight + cellHeight,
+                                         j * cellWidth + cellWidth, i * cellHeight + cellHeight);
                 }
             }
         }
@@ -35,7 +39,10 @@ void LabyrinthDrawer::paintEvent(QPaintEvent *event) {
         if (!mazePath_.empty()) {
             auto prevCell = mazePath_.begin();
             for (auto curCell = mazePath_.begin(); curCell != mazePath_.end(); ++curCell) {
-                painter.drawLine(prevCell->second * cellWidth + cellWidth/2, prevCell->first * cellHeight + cellHeight/2, curCell->second * cellWidth + cellWidth/2, curCell->first * cellHeight + cellHeight/2);
+                painter.drawLine(prevCell->second * cellWidth + cellWidth / 2,
+                                 prevCell->first * cellHeight + cellHeight / 2,
+                                 curCell->second * cellWidth + cellWidth / 2,
+                                 curCell->first * cellHeight + cellHeight / 2);
                 prevCell = curCell;
             }
         }
@@ -54,18 +61,16 @@ void LabyrinthDrawer::paintEvent(QPaintEvent *event) {
     }
 }
 
-void LabyrinthDrawer::setWidth(int value) {
-    width_ = value;
+void LabyrinthDrawer::setWidth(int value) { width_ = value; }
+void LabyrinthDrawer::setHeight(int value) { height_ = value; }
+void LabyrinthDrawer::setWalls(TripleVector value) { walls_ = value; }
+void LabyrinthDrawer::setPath(std::vector<std::pair<int, int>> path) { mazePath_ = path; }
+void LabyrinthDrawer::enableDrawerCase(char key) {
+    drawMazeFlag = key & Maze;
+    drawPathFlag = key & Path;
+    drawCaveFlag = key & Cave;
 }
-void LabyrinthDrawer::setHeight(int value) {
-    height_ = value;
-}
-void LabyrinthDrawer::setWalls(TripleVector value) {
-    walls_ = value;
-}
-void LabyrinthDrawer::setPath(std::vector<std::pair<int,int>> path) {
-    mazePath_ = path;
-}
+void LabyrinthDrawer::setPath(std::vector<std::pair<int, int>> path) { mazePath_ = path; }
 void LabyrinthDrawer::enableDrawerCase(char key) {
     drawMazeFlag = key & Maze;
     drawPathFlag = key & Path;
