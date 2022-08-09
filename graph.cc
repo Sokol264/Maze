@@ -6,8 +6,8 @@ using s21::MatrixGraph;
 MatrixGraph::MatrixGraph(int v, int e) : v_(v), e_(e) {}
 
 MatrixGraph::MatrixGraph(const TripleVector& labyrinthMatrix, int w, int h) :
-    v_(w * h),
-    e_(0) {
+        v_(w * h),
+        e_(0) {
     InitEdgeCount(labyrinthMatrix);
     InitData(labyrinthMatrix);
 }
@@ -33,7 +33,7 @@ void MatrixGraph::InitData(const TripleVector& labyrinthMatrix) {
 void MatrixGraph::ReserveMemory() {
     for (int i = 0; i < v_; ++i) {
         std::vector<bool> cols(v_, false);
-        data_.push_back(cols);
+        adjMatrix_.push_back(cols);
     }
 }
 
@@ -46,13 +46,25 @@ void MatrixGraph::ReadBorders(const DoubleVector &borders, BorderType type) {
     for (size_t i = 0, sz = borders.size(); i != sz; ++i) {
         for (size_t j = 0, jSize = borders[i].size(); j != jSize; ++j) {
             if (!borders[i][j]) {
-                int row = i * sz + j;
-                int col = type == BorderType::kRightBorder ? (i * sz + j + 1) : (i * sz + j + sz);
-                data_[row][col] = true;
-                data_[col][row] = true;
+                SetValuesToMatrix(i, j, sz, type);
             }
         }
     }
+}
+
+inline void MatrixGraph::SetValuesToMatrix(size_t i, size_t j, size_t sz, BorderType type) {
+    int row = GetRowValue(i, j , sz);
+    int col = GetColValue(i, j, sz, type);
+    adjMatrix_[row][col] = true;
+    adjMatrix_[col][row] = true;
+}
+
+inline size_t MatrixGraph::GetRowValue(size_t i, size_t j, size_t sz) {
+    return i * sz + j;
+}
+
+inline size_t MatrixGraph::GetColValue(size_t i, size_t j, size_t sz, BorderType type) {
+    return type == BorderType::kRightBorder ? (i * sz + j) : (i * sz + j + sz);
 }
 
 void MatrixGraph::SetVertexCount(int value)  {
@@ -72,9 +84,9 @@ int MatrixGraph::EdgeCount() const {
 }
 
 void MatrixGraph::Print() const {
-    for (size_t i = 0, sz = data_.size(); i != sz; ++i) {
-        for (size_t j = 0, jSize = data_[i].size(); j != jSize; ++j) {
-            std::cout << data_[i][j] << ' ';
+    for (size_t i = 0, sz = adjMatrix_.size(); i != sz; ++i) {
+        for (size_t j = 0, jSize = adjMatrix_[i].size(); j != jSize; ++j) {
+            std::cout << adjMatrix_[i][j] << ' ';
         }
         std::cout << '\n';
     }

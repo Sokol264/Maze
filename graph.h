@@ -41,11 +41,15 @@ class s21::MatrixGraph final : public IGraph {
     void ReserveMemory();
     void FillData(const TripleVector& borders);
     void ReadBorders(const DoubleVector& borders, BorderType type);
+    void SetValuesToMatrix(size_t i, size_t j, size_t sz, BorderType type);
+    size_t GetColValue(size_t i, size_t j, size_t sz, BorderType type);
+    size_t GetRowValue(size_t i, size_t j, size_t sz);
+    
 
  private:
     int v_;
     int e_;
-    Data data_;
+    Data adjMatrix_;
  
 };
 

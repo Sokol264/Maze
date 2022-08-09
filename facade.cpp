@@ -31,8 +31,6 @@ void Facade::ReadLabyrinthFromFile(const std::string &fileName) {
 
 void Facade::SearchWay(int start_index, int end_index) {
     std::shared_ptr<IGraph> graph = std::make_shared<MatrixGraph>(walls_, width_, height_);
-    std::cout << graph->VertexCount() << std::endl;
-    std::cout << graph->EdgeCount() << std::endl;
     std::make_unique<SimpleSearch>(graph)->Execute();
     graph->Print();
 }
